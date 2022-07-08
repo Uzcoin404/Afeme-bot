@@ -10,7 +10,7 @@ $telegram = new Telegram("5297964553:AAF8H_f2UB3xXI0TVWRJMKjdrGXYKoJY0mk", true)
 $chatID = "-1001760618618";
 $func = new Functions();
 $Admin = "829349149";
-$postID = $_GET['post_id'];
+$postID = $_GET['post'];
 
 // $telegram->setWebhook($siteUrl);
 
@@ -23,8 +23,8 @@ $fullName = $firstName . ' ' . $lastName;
 
 $data = json_decode(file_get_contents("http://ali98.uz/api/post/407"))->data;
 
-// var_dump($data->htype_id->name_uz);
-if (is_array($data) && !empty($data)) {
+var_dump($data);
+if ($data) {
     $images = count($data->image) > 0 ? $data->image : 'https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg';
     $advertID = $data->id;
     $saleName = $data->sale_id->name_uz;
@@ -43,15 +43,16 @@ if (is_array($data) && !empty($data)) {
             
         // }
 
-        $func->toChannelPhoto($images[0]->url, $saleName . "ga $room xonali $htypeName sotiladi
-$priceSum  $priceUsd
-$description
-$region viloyati $city $street ko'chasi
-[Batafsil ko'rish](http://ali98.uz/api/post/$advertID)
-[E'lon beruvchi](http://ali98.uz/api/user/$userID)");
+        $text = $saleName . "ga $room xonali $htypeName sotiladi
+        $priceSum  $priceUsd
+        $description
+        $region viloyati $city $street ko'chasi
+        [Batafsil ko'rish](http://ali98.uz/api/post/$advertID)
+        [E'lon beruvchi](http://ali98.uz/api/user/$userID)";
+
+        $func->toChannelPhoto('https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg', $text);
     }
 
-    print("<pre>" . print_r($data->sale_id->name_uz, true) . "</pre>");
+    // print("<pre>" . print_r($data->sale_id->name_uz, true) . "</pre>");
 }
-var_dump('');
 ?>
