@@ -27,9 +27,9 @@ class Functions {
         if ($replyMarkup && !$parseMode) {
             $telegram->sendPhoto(['chat_id' => $chatID, 'photo' => $photo, 'caption' => $caption, 'reply_markup' => $replyMarkup]);
         } else if (!$replyMarkup && $parseMode) {
-            $telegram->sendPhoto(['chat_id' => $chatID, 'photo' => $photo, 'caption' => $caption, 'parse_mode' => 'markdownV2']);
+            $telegram->sendPhoto(['chat_id' => $chatID, 'photo' => $photo, 'caption' => $caption, 'parse_mode' => 'HTML']);
         } else if ($replyMarkup && $parseMode) {
-            $telegram->sendPhoto(['chat_id' => $chatID, 'photo' => $photo, 'caption' => $caption, 'reply_markup' => $replyMarkup, 'parse_mode' => 'markdownV2']);
+            $telegram->sendPhoto(['chat_id' => $chatID, 'photo' => $photo, 'caption' => $caption, 'reply_markup' => $replyMarkup, 'parse_mode' => 'HTML']);
         } else {
             $telegram->sendPhoto(['chat_id' => $chatID, 'photo' => $photo, 'caption' => $caption]);
         }

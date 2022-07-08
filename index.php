@@ -21,11 +21,10 @@ $firstName = $telegram->FirstName();
 $lastName = $telegram->LastName();
 $fullName = $firstName . ' ' . $lastName;
 
-$data = json_decode(file_get_contents("http://ali98.uz/api/post/407"))->data;
+$data = json_decode(file_get_contents("http://ali98.uz/api/post/$postID"))->data;
 
-var_dump($data);
 if ($data) {
-    $images = count($data->image) > 0 ? $data->image : 'https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg';
+    $images = count($data->image) > 0 ? $data->image[0]->url : 'https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg';
     $advertID = $data->id;
     $saleName = $data->sale_id->name_uz;
     $priceSum = number_format($data->price_som, 2, '.' , ' ') . " so'm";
@@ -35,23 +34,19 @@ if ($data) {
     $region = $data->region_id->name_uz;
     $city = $data->city_id->name_uz;
     $street = $data->street;
-    $description = substr($data->description, 0, 300) . '...';
+    $description = substr($data->description, 0, 250) . '...';
     $userID = $data->user_id;
 
-    if (!empty($images)) {
-        // for ($i = 0; $i < count($images); $i++) {
-            
-        // }
+    
+    $text =  "🏠 $saleName" . "ga <b>$room</b> xonali <b>$htypeName</b> sotiladi 📢
 
-        $text = $saleName . "ga $room xonali $htypeName sotiladi
-        $priceSum  $priceUsd
-        $description
-        $region viloyati $city $street ko'chasi
-        [Batafsil ko'rish](http://ali98.uz/api/post/$advertID)
-        [E'lon beruvchi](http://ali98.uz/api/user/$userID)";
+💰 <b>$priceUsd</b>
+📃$description
+$region viloyati $city $street ko'chasi
 
-        $func->toChannelPhoto('https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg', $text);
-    }
+📎 <a href='uzcoin404.github.io/Afeme/advert/$advertID'>Batafsil ko'rish</a>       <a href='uzcoin404.github.io/Afeme/user/$userID'>E'lon beruvchi</a>";
+
+    $func->toChannelPhoto('https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg', $text, true);
 
     // print("<pre>" . print_r($data->sale_id->name_uz, true) . "</pre>");
 }
