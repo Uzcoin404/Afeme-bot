@@ -21,22 +21,22 @@ $firstName = $telegram->FirstName();
 $lastName = $telegram->LastName();
 $fullName = $firstName . ' ' . $lastName;
 
-$data = json_decode(file_get_contents("http://ali98.uz/api/post"));
+$data = json_decode(file_get_contents("http://ali98.uz/api/post/407"))->data;
 
+// var_dump($data->htype_id->name_uz);
 if (is_array($data) && !empty($data)) {
-    
-    $images = $data[0]->image;
-    $advertID = $data[0]->id;
-    $saleName = $data[0]->sale_id->name_uz;
-    $priceSum = number_format($data[0]->price_som, 2, '.' , ' ') . " so'm";
-    $priceUsd = "$". number_format($data[0]->price_usd, 2, '.' , ',');
-    $room = $data[0]->room;
-    $htypeName = $data[0]->htype_id->name_uz;
-    $region = $data[0]->region_id->name_uz;
-    $city = $data[0]->city_id->name_uz;
-    $street = $data[0]->street;
-    $description = substr($data[0]->description, 0, 300) . '...';
-    $userID = $data[0]->user_id;
+    $images = count($data->image) > 0 ? $data->image : 'https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg';
+    $advertID = $data->id;
+    $saleName = $data->sale_id->name_uz;
+    $priceSum = number_format($data->price_som, 2, '.' , ' ') . " so'm";
+    $priceUsd = "$". number_format($data->price_usd, 2, '.' , ',');
+    $room = $data->room;
+    $htypeName = $data->htype_id->name_uz;
+    $region = $data->region_id->name_uz;
+    $city = $data->city_id->name_uz;
+    $street = $data->street;
+    $description = substr($data->description, 0, 300) . '...';
+    $userID = $data->user_id;
 
     if (!empty($images)) {
         // for ($i = 0; $i < count($images); $i++) {
@@ -51,7 +51,7 @@ $region viloyati $city $street ko'chasi
 [E'lon beruvchi](http://ali98.uz/api/user/$userID)");
     }
 
-    print("<pre>" . print_r($data[0]->sale_id->name_uz, true) . "</pre>");
+    print("<pre>" . print_r($data->sale_id->name_uz, true) . "</pre>");
 }
-var_dump(substr('Salom', 0, 4));
+var_dump('');
 ?>
