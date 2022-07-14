@@ -23,30 +23,46 @@ $fullName = $firstName . ' ' . $lastName;
 
 $data = json_decode(file_get_contents("http://ali98.uz/api/post/$postID"))->data;
 
-if ($data) {
+var_dump($data);
+if ($data && $postID) {
     $images = count($data->image) > 0 ? $data->image[0]->url : 'https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg';
     $advertID = $data->id;
-    $saleName = $data->sale_id->name_uz;
+    $saleNameUZ = $data->sale_id->id == 5 ? "Ijaraga beriladi" : "Sotiladi";
     $priceSum = number_format($data->price_som, 2, '.' , ' ') . " so'm";
     $priceUsd = "$". number_format($data->price_usd, 2, '.' , ',');
     $room = $data->room;
-    $htypeName = $data->htype_id->name_uz;
-    $region = $data->region_id->name_uz;
+    $htypeNameUZ = $data->htype_id->name_uz;
+    $htypeNameRU = $data->htype_id->name_ru;
+    $regionUZ = $data->region_id->name_uz;
+    $regionRU = $data->region_id->name_ru;
     $city = $data->city_id->name_uz;
     $street = $data->street;
     $description = substr($data->description, 0, 250) . '...';
     $userID = $data->user_id;
 
-    
-    $text =  "🏠 $saleName" . "ga <b>$room</b> xonali <b>$htypeName</b> sotiladi 📢
+    $textUz =  "🏠 <b>$room</b> xonali <b>$htypeNameUZ</b> $saleNameUZ 📢
 
 💰 <b>$priceUsd</b>
 📃$description
-$region viloyati $city $street ko'chasi
+$regionUZ viloyati $city $street ko'chasi
 
 📎 <a href='uzcoin404.github.io/Afeme/advert/$advertID'>Batafsil ko'rish</a>       <a href='uzcoin404.github.io/Afeme/user/$userID'>E'lon beruvchi</a>";
 
-    $func->toChannelPhoto('https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg', $text, true);
+
+    $advertTitleRU = $data->sale_id->id == 5 ? 
+    "<b>$room</b> комнатная <b>$htypeNameRU</b> в аренду" : 
+    "Продается <b>$room</b> комнатная <b>$htypeNameRU</b>";
+
+    $textRu =  "🏠 $advertTitleRU 📢
+
+💰 <b>$priceUsd</b>
+📃$description
+$regionRU область $city, $street улица
+
+📎 <a href='uzcoin404.github.io/Afeme/advert/$advertID'>Узнать больше</a>    <a href='uzcoin404.github.io/Afeme/user/$userID'>Рекламодатель</a>";
+
+    $func->toChannelPhoto($images, $textRu, true);
+    $func->toChannelPhoto($images, $textUz, true);
 
     // print("<pre>" . print_r($data->sale_id->name_uz, true) . "</pre>");
 }
