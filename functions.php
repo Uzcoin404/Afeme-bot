@@ -15,9 +15,9 @@ class Functions {
         } else if ($replyMarkup != null && !$parseMode) {
             $telegram->sendMessage(['chat_id' => $chatID, 'text' => $text, 'reply_markup' => $replyMarkup]);
         } else if ($replyMarkup == null && $parseMode) {
-            $telegram->sendMessage(['chat_id' => $chatID, 'text' => $text, 'parse_mode' => 'markdownV2']);
+            $telegram->sendMessage(['chat_id' => $chatID, 'text' => $text, 'parse_mode' => 'HTML']);
         } else {
-            $telegram->sendMessage(['chat_id' => $chatID, 'text' => $text, 'reply_markup' => $replyMarkup, 'parse_mode' => 'markdownV2']);
+            $telegram->sendMessage(['chat_id' => $chatID, 'text' => $text, 'reply_markup' => $replyMarkup, 'parse_mode' => 'HTML']);
         }
     }
 
