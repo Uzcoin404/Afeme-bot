@@ -21,9 +21,11 @@ $firstName = $telegram->FirstName();
 $lastName = $telegram->LastName();
 $fullName = $firstName . ' ' . $lastName;
 
+var_dump($postID);
 echo "Welcome to Afeme bot";
 
 $data = json_decode(file_get_contents("http://ali98.uz/api/post/$postID"))->data;
+var_dump($data);
 
 if ($data && $postID) {
     $images = count($data->image) > 0 ? $data->image[0]->url : 'https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg';
