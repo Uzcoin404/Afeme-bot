@@ -21,7 +21,6 @@ $firstName = $telegram->FirstName();
 $lastName = $telegram->LastName();
 $fullName = $firstName . ' ' . $lastName;
 
-var_dump($postID);
 echo "Welcome to Afeme bot";
 
 $data = $postID ? json_decode(file_get_contents("http://ali98.uz/api/post/$postID"))->data : null;
@@ -63,10 +62,9 @@ $regionRU область $city, $street улица
 
 📎 <a href='uzcoin404.github.io/Afeme/advert/$advertID'>Узнать больше</a>    <a href='uzcoin404.github.io/Afeme/user/$userID'>Рекламодатель</a>";
 
-    var_dump($textUz, $textRu);
     $func->toChannelPhoto($images, $textUz, true);
     $func->toChannelPhoto($images, $textRu, true);
 
 }
-print("<pre>" . print_r($data, true) . "</pre>");
+// print("<pre>" . print_r($data, true) . "</pre>");
 ?>
