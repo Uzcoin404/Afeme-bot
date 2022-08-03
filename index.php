@@ -63,6 +63,7 @@ $regionRU область $city, $street улица
 
 📎 <a href='uzcoin404.github.io/Afeme/advert/$advertID'>Узнать больше</a>    <a href='uzcoin404.github.io/Afeme/user/$userID'>Рекламодатель</a>";
 
+    var_dump($textUz, $textRu);
     $func->toChannelPhoto($images, $textRu, true);
     $func->toChannelPhoto($images, $textUz, true);
 
